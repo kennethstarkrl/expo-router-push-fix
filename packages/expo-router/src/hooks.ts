@@ -177,10 +177,9 @@ export function useLocalSearchParams<
   TParams1 extends SearchParams | Routes = UnknownOutputParams,
   TParams2 extends SearchParams = UnknownOutputParams,
 >(): RouteParams<TParams1, TParams2> {
-  let params = React.useContext(LocalRouteParamsContext) ?? {};
-  params = params?.params ? params.params : params;
+  const params = React.useContext(LocalRouteParamsContext) ?? {};
   return Object.fromEntries(
-    Object.entries(params).map(([key, value]) => {
+    Object.entries(params?.params ? params.params : params).map(([key, value]) => {
       if (Array.isArray(value)) {
         return [
           key,
